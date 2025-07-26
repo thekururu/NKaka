@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyecto Complejo - Ø𝐓𝐈</title>
+  <style>
+    :root {
+      --color-primary: #00ffe0;
+      --color-secondary: #004d4d;
+      --color-bg: #0a0f16;
+      --color-bg-alt: #121a2a;
+      --color-text: #e0f7fa;
+      --color-accent: #ff4081;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --transition: 0.3s ease-in-out;
+    }
+    /* Reset básico */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Parallax background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      filter: brightness(0.35);
+      z-index: -1;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    header {
+      background: var(--color-bg-alt);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--color-primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 0.2rem;
+      color: var(--color-primary);
+      text-shadow: 0 0 8px var(--color-primary);
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 600;
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+      transition: background-color var(--transition);
+      user-select: none;
+    }
+    nav a:hover, nav a:focus {
+      background: var(--color-primary);
+      color: var(--color-bg-alt);
+      outline: none;
+    }
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 900px;
+      margin: auto;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.15rem;
+      text-shadow: 0 0 12px var(--color-primary);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 650px;
+      margin-bottom: 2rem;
+      color: #a3f0e8;
+      line-height: 1.5;
+    }
+    .hero img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px var(--color-primary);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Features grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1100px;
+      margin: 0 auto 4rem;
+    }
+    .feature-card {
+      background: var(--color-bg-alt);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 0 12px rgba(0,255,224,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform var(--transition);
+      cursor: default;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 24px var(--color-primary);
+    }
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+      fill: var(--color-primary);
+    }
+    .feature-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc {
+      font-size: 1rem;
+      color: #81e6d9;
+    }
+
+    /* Contact form */
+    .contact-section {
+      background: var(--color-bg-alt);
+      padding: 3rem 2rem;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--color-primary);
+    }
+    .contact-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: var(--color-primary);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    input, textarea {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: var(--font-family);
+    }
+    input:focus, textarea:focus {
+      outline: 2px solid var(--color-primary);
+      background: #002f2f;
+      color: var(--color-text);
+    }
+    button[type="submit"] {
+      background: var(--color-primary);
+      color: var(--color-bg-alt);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      padding: 1rem 0;
+      cursor: pointer;
+      transition: background-color var(--transition);
+      user-select: none;
+    }
+    button[type="submit"]:hover, button[type="submit"]:focus {
+      background: #00ccbb;
+      outline: none;
+    }
+    /* Footer */
+    footer {
+      background: var(--color-bg-alt);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 2px solid var(--color-primary);
+    }
+    footer .socials {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    footer .socials a {
+      color: var(--color-primary);
+      transition: color var(--transition);
+    }
+    footer .socials a:hover {
+      color: var(--color-accent);
+    }
+    footer p {
+      color: #60e0d5;
+      font-weight: 600;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(30px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-15px);}
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Ø𝐓𝐈</div>
+    <nav>
+      <ul>
+        <li><a href="#features" tabindex="1">Características</a></li>
+        <li><a href="#contact" tabindex="2">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" aria-label="Introducción al bot ØTI">
+    <h1>Bienvenido a Ø𝐓𝐈</h1>
+    <p>Un bot de moderación innovador, abierto y en constante expansión. Ayudándote a gestionar tu servidor con funciones como tickets, warnings, bans y mucho más.</p>
+    <img src="https://i.postimg.cc/5yHKWmsB/242-sin-t-tulo-20250726120840.png" alt="Logo de ØTI" />
+  </section>
+
+  <section id="features" class="features" aria-label="Características principales del bot">
+    <article class="feature-card" tabindex="0" role="region" aria-labelledby="feature1-title">
+      <svg class="feature-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="4" fill="none"/><path d="M20 32l8 8 16-16" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3 id="feature1-title" class="feature-title">Sistema de Tickets</h3>
+      <p class="feature-desc">Gestiona consultas y problemas con canales privados automáticos.</p>
+    </article>
+    <article class="feature-card" tabindex="0" role="region" aria-labelledby="feature2-title">
+      <svg class="feature-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="4" fill="none"/><path d="M20 32
