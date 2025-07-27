@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Proyecto Complejo - Ø𝐓𝐈</title>
+  @keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.waving-hand {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+  stroke: var(--color-primary);
+  fill: none;
+  transition: transform 0.3s ease;
+  transform-origin: bottom center;
+}
+
+.waving-hand:hover {
+  animation: wave 1s ease-in-out;
+}
+
   <style>
     :root {
       --color-primary: #00ffe0;
@@ -322,13 +345,13 @@
   <p class="feature-desc">Consulta la lista completa de comandos disponibles y obtén descripciones claras de cada función.</p>
 </article>
 <article class="feature-card" tabindex="0" role="region" aria-labelledby="feature6-title">
-  <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12" />
-    <path d="M11 12V3.5a1.5 1.5 0 0 1 3 0V12" />
-    <path d="M14 11V6.5a1.5 1.5 0 0 1 3 0V14" />
-    <path d="M9 13c-2 0-3 2-2 4s3 4 6 4c4 0 7-3.5 7-6.5" />
+  <svg class="feature-icon waving-hand" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7 10V5.5a1.5 1.5 0 0 1 3 0V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 10V4.5a1.5 1.5 0 0 1 3 0V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13 10V6.5a1.5 1.5 0 0 1 3 0V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 10c-2 0-3 2-2 4s3 4 6 4c4 0 7-3.5 7-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <h3 id="feature6-title" class="feature-title">Sistema de Bienvenidas</h3>
   <p class="feature-desc">Recibe a nuevos usuarios con mensajes cálidos, personalizados y automáticos al unirse al servidor.</p>
 </article>
+
