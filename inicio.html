@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ø𝐓𝐈 | Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent: #00f2ff; /* Celeste/Azul neón */
+            --accent-glow: rgba(0, 242, 255, 0.5);
+            --gray-hover: #1a1a1a;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- NAV BAR --- */
+        nav {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        /* Efecto hover solicitado: Negro/Gris/Blanco con toque Azul */
+        .nav-links a:hover {
+            background: var(--gray-hover);
+            color: var(--text-main);
+            box-shadow: inset 0 -2px 0 var(--accent);
+        }
+
+        .nav-links a i {
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover i {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at 50% 50%, #001a1d 0%, #050505 70%);
+        }
+
+        .hero-img-main {
+            width: 180px;
+            height: 180px;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px var(--accent-glow);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(to bottom, #fff 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            max-width: 600px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px var(--accent-glow);
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Aquí podrías añadir un menú hamburguesa luego */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="inicio.html" class="logo-container">
+            <img src="https://i.postimg.cc/5yHKWmsB/242-sin-t-tulo-20250726120840.png" alt="ØTI Logo" class="logo-img">
+            <span class="logo-text">Ø𝐓𝐈</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="coms.html"><i class="ri-terminal-line"></i> Comandos</a></li>
+            <li><a href="ia.html"><i class="ri-brain-line"></i> IA</a></li>
+            <li><a href="https://github.com" target="_blank"><i class="ri-code-s-slash-line"></i> Código Fuente</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <img src="https://i.postimg.cc/5yHKWmsB/242-sin-t-tulo-20250726120840.png" alt="ØTI Large Logo" class="hero-img-main">
+        <h1>Potencia tu Comunidad</h1>
+        <p>
+            Ø𝐓𝐈 es el bot de moderación y entretenimiento definitivo. 
+            Seguridad avanzada, inteligencia artificial y herramientas de gestión en un solo lugar.
+        </p>
+        <div class="hero-actions">
+            <a href="#" class="btn-primary">Añadir a Discord</a>
+        </div>
+    </section>
+
+</body>
+</html>
