@@ -11,29 +11,29 @@
             --bg-card: #0f0f0f;
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
-            --accent: #00f2ff; /* Celeste/Azul neón */
-            --accent-glow: rgba(0, 242, 255, 0.5);
+            --accent: #00f2ff; 
+            --accent-glow: rgba(0, 242, 255, 0.4);
             --gray-hover: #1a1a1a;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
+        /* --- CANVAS SPHERE --- */
+        #sphereCanvas {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            pointer-events: auto;
         }
 
         /* --- NAV BAR --- */
         nav {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid #222;
             display: flex;
             justify-content: space-between;
@@ -45,156 +45,223 @@
             z-index: 1000;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; z-index: 1001; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent); }
+        .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
 
-        .logo-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--text-main);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 10px;
-        }
-
+        .nav-links { display: flex; list-style: none; gap: 10px; }
         .nav-links a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
+            text-decoration: none; color: var(--text-dim); padding: 8px 16px; border-radius: 8px;
+            display: flex; align-items: center; gap: 8px; transition: var(--transition);
         }
+        .nav-links a:hover { background: var(--gray-hover); color: var(--text-main); box-shadow: inset 0 -2px 0 var(--accent); }
 
-        /* Efecto hover solicitado: Negro/Gris/Blanco con toque Azul */
-        .nav-links a:hover {
-            background: var(--gray-hover);
-            color: var(--text-main);
-            box-shadow: inset 0 -2px 0 var(--accent);
-        }
-
-        .nav-links a i {
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover i {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
+            position: relative;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at 50% 50%, #001a1d 0%, #050505 70%);
+            padding-top: 80px;
         }
 
-        .hero-img-main {
-            width: 180px;
-            height: 180px;
-            border-radius: 30px;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px var(--accent-glow);
-            animation: float 5s ease-in-out infinite;
+        .hero-content { z-index: 10; position: relative; }
+
+        .description-box {
+            background: var(--bg-card);
+            border: 1px solid #222;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 700px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(to bottom, #fff 30%, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .description-box::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent);
         }
 
-        .hero p {
-            color: var(--text-dim);
-            max-width: 600px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
+        .description-text { color: var(--text-dim); line-height: 1.8; font-size: 1.1rem; }
+
+        /* --- WEBHOOK HELP SECTION --- */
+        .help-section {
+            padding: 5rem 5%;
+            background: #080808;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-            padding: 14px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
+        .help-card {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            padding: 2.5rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
         }
 
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px var(--accent-glow);
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+        input, textarea {
+            width: 100%; background: #151515; border: 1px solid #333; padding: 12px;
+            color: white; border-radius: 10px; transition: var(--transition);
         }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); background: #1a1a1a; }
 
-        /* --- ANIMACIONES --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+        .btn-send {
+            width: 100%; background: var(--accent); color: black; border: none;
+            padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition);
         }
+        .btn-send:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--accent-glow); }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Aquí podrías añadir un menú hamburguesa luego */
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="inicio.html" class="logo-container">
-            <img src="https://i.postimg.cc/5yHKWmsB/242-sin-t-tulo-20250726120840.png" alt="ØTI Logo" class="logo-img">
+        <div class="logo-container">
+            <img src="https://media.discordapp.net/attachments/1387449616412315741/1486186182336577719/469_sin_titulo_20260203174008.png?ex=69d11c7d&is=69cfcafd&hm=13fe8af029c5aa658cd01b8e68e2b277d751f71d8d93c437ca719db202484c21&=&format=webp&quality=lossless&width=578&height=578" alt="Logo" class="logo-img">
             <span class="logo-text">Ø𝐓𝐈</span>
-        </a>
-
+        </div>
         <ul class="nav-links">
             <li><a href="coms.html"><i class="ri-terminal-line"></i> Comandos</a></li>
             <li><a href="ia.html"><i class="ri-brain-line"></i> IA</a></li>
-            <li><a href="https://github.com" target="_blank"><i class="ri-code-s-slash-line"></i> Código Fuente</a></li>
+            <li><a href="https://github.com" target="_blank"><i class="ri-code-s-slash-line"></i> Código</a></li>
         </ul>
     </nav>
 
     <section class="hero">
-        <img src="https://i.postimg.cc/5yHKWmsB/242-sin-t-tulo-20250726120840.png" alt="ØTI Large Logo" class="hero-img-main">
-        <h1>Potencia tu Comunidad</h1>
-        <p>
-            Ø𝐓𝐈 es el bot de moderación y entretenimiento definitivo. 
-            Seguridad avanzada, inteligencia artificial y herramientas de gestión en un solo lugar.
-        </p>
-        <div class="hero-actions">
-            <a href="#" class="btn-primary">Añadir a Discord</a>
+        <canvas id="sphereCanvas"></canvas>
+
+        <div class="hero-content">
+            <h1 style="font-size: 4rem; letter-spacing: -2px;">Ø𝐓𝐈 BOT</h1>
+            
+            <div class="description-box">
+                <p class="description-text">
+                    Ø𝐓𝐈 no es solo un bot, es el ecosistema definitivo para tu servidor de Discord. 
+                    Diseñado con una arquitectura de vanguardia, ofrece desde moderación inteligente 
+                    hasta integración de IA avanzada, todo bajo una interfaz rápida y minimalista. 
+                    Lleva tu comunidad al siguiente nivel con el poder de la tecnología moderna.
+                </p>
+            </div>
         </div>
     </section>
 
+    <section class="help-section" id="soporte">
+        <div class="help-card">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Centro de Ayuda</h2>
+            <div class="form-group">
+                <label>DISCORD ID</label>
+                <input type="text" id="userId" placeholder="Ej: 123456789012345678">
+            </div>
+            <div class="form-group">
+                <label>TU PREGUNTA O PROBLEMA</label>
+                <textarea id="userMsg" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+            </div>
+            <button class="btn-send" onclick="sendWebhook()">Enviar Reporte</button>
+        </div>
+    </section>
+
+    <script>
+        // --- LOGICA DE LA ESFERA INTERACTIVA ---
+        const canvas = document.getElementById('sphereCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, points = [];
+        const numPoints = 120;
+        let mouse = { x: 0, y: 0, active: false };
+
+        function initCanvas() {
+            width = 500; height = 500;
+            canvas.width = width; canvas.height = height;
+            points = [];
+            for(let i=0; i<numPoints; i++) {
+                let theta = Math.acos(Math.random() * 2 - 1);
+                let phi = Math.random() * Math.PI * 2;
+                points.push({
+                    x: 180 * Math.sin(theta) * Math.cos(phi),
+                    y: 180 * Math.sin(theta) * Math.sin(phi),
+                    z: 180 * Math.cos(theta)
+                });
+            }
+        }
+
+        function rotate(p, x, y) {
+            let cosX = Math.cos(x), sinX = Math.sin(x);
+            let cosY = Math.cos(y), sinY = Math.sin(y);
+            let py = p.y * cosX - p.z * sinX;
+            let pz = p.y * sinX + p.z * cosX;
+            p.y = py; p.z = pz;
+            let px = p.x * cosY + p.z * sinY;
+            pz = -p.x * sinY + p.z * cosY;
+            p.x = px; p.z = pz;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            let rotX = mouse.active ? (mouse.y - height/2) * 0.0001 : 0.005;
+            let rotY = mouse.active ? (mouse.x - width/2) * 0.0001 : 0.005;
+
+            points.forEach(p => {
+                rotate(p, rotX, rotY);
+                let scale = 300 / (300 - p.z);
+                let x2d = p.x * scale + width/2;
+                let y2d = p.y * scale + height/2;
+                let size = Math.max(1, 2 * scale);
+                let alpha = (p.z + 180) / 360;
+                ctx.fillStyle = `rgba(0, 242, 255, ${alpha + 0.2})`;
+                ctx.beginPath();
+                ctx.arc(x2d, y2d, size, 0, Math.PI*2);
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+
+        canvas.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            mouse.active = true;
+        });
+        canvas.addEventListener('mouseleave', () => mouse.active = false);
+
+        initCanvas(); draw();
+
+        // --- WEBHOOK FUNCTION ---
+        function sendWebhook() {
+            const id = document.getElementById('userId').value;
+            const msg = document.getElementById('userMsg').value;
+            const webhookURL = "TU_WEBHOOK_AQUI"; // REEMPLAZA ESTO
+
+            if(!id || !msg) return alert("Rellena todos los campos, crack.");
+
+            const payload = {
+                embeds: [{
+                    title: "🚀 Nuevo Reporte de Ayuda",
+                    color: 3447003,
+                    fields: [
+                        { name: "🆔 Discord ID", value: id, inline: true },
+                        { name: "📝 Mensaje", value: msg }
+                    ],
+                    footer: { text: "Ø𝐓𝐈 Web System" }
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert("¡Enviado! Te contactaremos pronto.");
+                document.getElementById('userMsg').value = "";
+            }).catch(() => alert("Error al enviar. Revisa el Webhook."));
+        }
+    </script>
 </body>
 </html>
