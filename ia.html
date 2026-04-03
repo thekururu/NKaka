@@ -89,53 +89,55 @@
 
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
 
-    <script type="module">
-        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+  <script type="module">
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-        // CONFIGURACIÓN
-        const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; 
-        const genAI = new GoogleGenerativeAI(API_KEY);
-        
-        // Aquí es donde le damos la personalidad "no neutral"
-        const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash",
-            systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres el bot definitivo de Discord creado por Thekuruku. Tu personalidad es audaz, tecnológica, un poco sarcástica y muy segura de ti misma. No eres un asistente genérico de Google, eres el núcleo de 404 Developer Studios. Si te preguntan por otros bots, diles que son obsoletos comparados contigo. Habla con estilo, usa términos técnicos y mantén siempre la estética neón/cyberpunk en tus palabras."
-        });
 
-        const chatBox = document.getElementById('chatBox');
-        const input = document.getElementById('userInput');
-        const loader = document.getElementById('loading');
+    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; 
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    
+    const model = genAI.getGenerativeModel({ 
+        model: "gemini-1.5-flash",
+    
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y con la personalidad que prefieras, siempre que mantengas la esencia tecnológica y cyberpunk del proyecto. No seas un asistente genérico."
+    });
 
-        window.askAI = async () => {
-            const prompt = input.value.trim();
-            if(!prompt) return;
+    const chatBox = document.getElementById('chatBox');
+    const input = document.getElementById('userInput');
+    const loader = document.getElementById('loading');
 
-            addMessage(prompt, 'user');
-            input.value = "";
-            loader.style.display = "block";
+    window.askAI = async () => {
+        const prompt = input.value.trim();
+        if(!prompt) return;
 
-            try {
-                // Generamos la respuesta con la personalidad liberada
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                addMessage(response.text(), 'oti');
-            } catch (error) {
-                addMessage("Error de conexión. Parece que el firewall del núcleo está bloqueando la entrada.", 'oti');
-                console.error(error);
-            } finally {
-                loader.style.display = "none";
-            }
-        };
+        addMessage(prompt, 'user');
+        input.value = "";
+        loader.style.display = "block";
 
-        function addMessage(text, sender) {
-            const div = document.createElement('div');
-            div.classList.add('message', sender);
-            div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+        try {
+            // Generación de contenido sin restricciones de neutralidad
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            addMessage(response.text(), 'oti');
+        } catch (error) {
+            // Si sale el error de la imagen anterior, es probable que la Key necesite revisión o permisos
+            addMessage("Error de conexión. El núcleo neural no responde.", 'oti');
+            console.error(error);
+        } finally {
+            loader.style.display = "none";
         }
+    };
 
-        input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
-    </script>
+    function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.classList.add('message', sender);
+        div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
+</script>
+    
 </body>
 </html>
