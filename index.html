@@ -3,191 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ø𝐓𝐈 | Home</title>
+    <title>✦Ø𝐓𝐈✦ | Home</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #050505;
-            --bg-card: #0f0f0f;
+            --bg-card: rgba(15, 15, 15, 0.7);
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --accent: #00f2ff; 
             --accent-glow: rgba(0, 242, 255, 0.4);
-            --gray-hover: #1a1a1a;
-            --transition: all 0.3s ease;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow: hidden; height: 100vh; }
 
-        /* --- CANVAS SPHERE --- */
+        /* --- BACKGROUND & CANVAS --- */
         #sphereCanvas {
             position: absolute;
-            top: 0;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-            pointer-events: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            cursor: move;
         }
 
         /* --- NAV BAR --- */
         nav {
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; z-index: 1001; }
-        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent); }
-        .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--accent); }
+        .logo-text { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: 1px; }
 
-        .nav-links { display: flex; list-style: none; gap: 10px; }
-        .nav-links a {
-            text-decoration: none; color: var(--text-dim); padding: 8px 16px; border-radius: 8px;
-            display: flex; align-items: center; gap: 8px; transition: var(--transition);
-        }
-        .nav-links a:hover { background: var(--gray-hover); color: var(--text-main); box-shadow: inset 0 -2px 0 var(--accent); }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); transition: var(--transition); font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
+        .nav-links a:hover { color: var(--accent); transform: translateY(-2px); }
 
         /* --- HERO --- */
         .hero {
-            position: relative;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; position: relative; z-index: 10;
         }
 
-        .hero-content { z-index: 10; position: relative; }
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px var(--accent-glow);
+            pointer-events: none;
+        }
 
-        .description-box {
-            background: var(--bg-card);
-            border: 1px solid #222;
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 700px;
-            margin: 2rem auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* --- DESCRIPCIÓN REDISEÑADA (MÁS GOAT) --- */
+        .desc-container {
+            margin-top: 150px; /* Bajada la descripción */
+            max-width: 600px;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
         }
 
-        .description-box::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent);
+        .desc-text {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-style: italic;
+            opacity: 0.8;
         }
 
-        .description-text { color: var(--text-dim); line-height: 1.8; font-size: 1.1rem; }
-
-        /* --- WEBHOOK HELP SECTION --- */
-        .help-section {
-            padding: 5rem 5%;
-            background: #080808;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .btn-invite {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
         }
 
-        .help-card {
-            background: var(--bg-card);
-            border: 1px solid #333;
-            padding: 2.5rem;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 500px;
+        .btn-invite:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .form-group { margin-bottom: 1.5rem; text-align: left; }
-        label { display: block; margin-bottom: 0.5rem; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
-        input, textarea {
-            width: 100%; background: #151515; border: 1px solid #333; padding: 12px;
-            color: white; border-radius: 10px; transition: var(--transition);
+        /* --- SOPORTE FLOTANTE --- */
+        .support-trigger {
+            position: fixed; bottom: 30px; left: 30px;
+            width: 60px; height: 60px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: 900;
+            cursor: pointer; z-index: 2000;
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+            transition: var(--transition);
         }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); background: #1a1a1a; }
+        .support-trigger:hover { transform: scale(1.1) rotate(15deg); }
 
-        .btn-send {
-            width: 100%; background: var(--accent); color: black; border: none;
-            padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition);
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 3000;
         }
-        .btn-send:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--accent-glow); }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .modal-content {
+            background: #111; border: 1px solid #333;
+            padding: 30px; border-radius: 20px; width: 90%; max-width: 400px;
+            position: relative; animation: modalIn 0.3s ease-out;
+        }
+
+        @keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .modal-content h2 { margin-bottom: 20px; color: var(--accent); }
+        .modal-content input, .modal-content textarea {
+            width: 100%; background: #1a1a1a; border: 1px solid #333;
+            padding: 12px; color: #fff; margin-bottom: 15px; border-radius: 10px;
+        }
+
+        .close-modal { position: absolute; top: 15px; right: 15px; cursor: pointer; color: #555; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo-container">
-            <img src="https://media.discordapp.net/attachments/1387449616412315741/1486186182336577719/469_sin_titulo_20260203174008.png?ex=69d11c7d&is=69cfcafd&hm=13fe8af029c5aa658cd01b8e68e2b277d751f71d8d93c437ca719db202484c21&=&format=webp&quality=lossless&width=578&height=578" alt="Logo" class="logo-img">
-            <span class="logo-text">Ø𝐓𝐈</span>
+            <img src="https://media.discordapp.net/attachments/1387449616412315741/1486186182336577719/469_sin_titulo_20260203174008.png?ex=69d11c7d&is=69cfcafd&hm=13fe8af029c5aa658cd01b8e68e2b277d751f71d8d93c437ca719db202484c21&=&format=webp&quality=lossless&width=578&height=578" class="logo-img">
+            <span class="logo-text">✦Ø𝐓𝐈✦</span>
         </div>
         <ul class="nav-links">
             <li><a href="coms.html"><i class="ri-terminal-line"></i> Comandos</a></li>
             <li><a href="ia.html"><i class="ri-brain-line"></i> IA</a></li>
-            <li><a href="https://github.com" target="_blank"><i class="ri-code-s-slash-line"></i> Código</a></li>
+            <li><a href="#"><i class="ri-code-s-slash-line"></i> Código</a></li>
         </ul>
     </nav>
 
     <section class="hero">
         <canvas id="sphereCanvas"></canvas>
-
-        <div class="hero-content">
-            <h1 style="font-size: 4rem; letter-spacing: -2px;">Ø𝐓𝐈 BOT</h1>
-            
-            <div class="description-box">
-                <p class="description-text">
-                    Ø𝐓𝐈 no es solo un bot, es el ecosistema definitivo para tu servidor de Discord. 
-                    Diseñado con una arquitectura de vanguardia, ofrece desde moderación inteligente 
-                    hasta integración de IA avanzada, todo bajo una interfaz rápida y minimalista. 
-                    Lleva tu comunidad al siguiente nivel con el poder de la tecnología moderna.
-                </p>
-            </div>
+        <h1>✦Ø𝐓𝐈✦</h1>
+        
+        <div class="desc-container">
+            <p class="desc-text">
+                "Ø𝐓𝐈 redefine la gestión de comunidades. Un ecosistema minimalista, potente y diseñado para quienes buscan la excelencia en Discord."
+            </p>
+            <a href="AQUI_TU_LINK_DE_INVITE" class="btn-invite">Invitar al Bot</a>
         </div>
     </section>
 
-    <section class="help-section" id="soporte">
-        <div class="help-card">
-            <h2 style="margin-bottom: 1.5rem; text-align: center;">Centro de Ayuda</h2>
-            <div class="form-group">
-                <label>DISCORD ID</label>
-                <input type="text" id="userId" placeholder="Ej: 123456789012345678">
-            </div>
-            <div class="form-group">
-                <label>TU PREGUNTA O PROBLEMA</label>
-                <textarea id="userMsg" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
-            </div>
-            <button class="btn-send" onclick="sendWebhook()">Enviar Reporte</button>
+    <div class="support-trigger" onclick="toggleModal()">?</div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <i class="ri-close-line close-modal" onclick="toggleModal()"></i>
+            <h2>Centro de Ayuda</h2>
+            <input type="text" id="userId" placeholder="Tu Discord ID">
+            <textarea id="userMsg" rows="4" placeholder="¿Qué necesitas, crack?"></textarea>
+            <button class="btn-invite" style="width: 100%; border-radius: 10px;" onclick="sendWebhook()">Enviar Reporte</button>
         </div>
-    </section>
+    </div>
 
     <script>
-        // --- LOGICA DE LA ESFERA INTERACTIVA ---
+        // --- ESFERA INTERACTIVA (AHORA SE MUEVE CON EL MOUSE) ---
         const canvas = document.getElementById('sphereCanvas');
         const ctx = canvas.getContext('2d');
-        let width, height, points = [];
-        const numPoints = 120;
-        let mouse = { x: 0, y: 0, active: false };
+        let points = [];
+        const numPoints = 130;
+        let mouseX = 0, mouseY = 0;
+        let autoRotateX = 0.002, autoRotateY = 0.002;
 
-        function initCanvas() {
-            width = 500; height = 500;
-            canvas.width = width; canvas.height = height;
-            points = [];
+        function init() {
+            canvas.width = 600; canvas.height = 600;
             for(let i=0; i<numPoints; i++) {
                 let theta = Math.acos(Math.random() * 2 - 1);
                 let phi = Math.random() * Math.PI * 2;
                 points.push({
-                    x: 180 * Math.sin(theta) * Math.cos(phi),
-                    y: 180 * Math.sin(theta) * Math.sin(phi),
-                    z: 180 * Math.cos(theta)
+                    x: 200 * Math.sin(theta) * Math.cos(phi),
+                    y: 200 * Math.sin(theta) * Math.sin(phi),
+                    z: 200 * Math.cos(theta)
                 });
             }
         }
@@ -204,64 +209,61 @@
         }
 
         function draw() {
-            ctx.clearRect(0, 0, width, height);
-            let rotX = mouse.active ? (mouse.y - height/2) * 0.0001 : 0.005;
-            let rotY = mouse.active ? (mouse.x - width/2) * 0.0001 : 0.005;
+            ctx.clearRect(0, 0, 600, 600);
+            // Si mueves el mouse, la rotación sigue al mouse. Si no, rota solo.
+            let rX = (mouseY - 300) * 0.0001 || autoRotateX;
+            let rY = (mouseX - 300) * 0.0001 || autoRotateY;
 
             points.forEach(p => {
-                rotate(p, rotX, rotY);
-                let scale = 300 / (300 - p.z);
-                let x2d = p.x * scale + width/2;
-                let y2d = p.y * scale + height/2;
-                let size = Math.max(1, 2 * scale);
-                let alpha = (p.z + 180) / 360;
-                ctx.fillStyle = `rgba(0, 242, 255, ${alpha + 0.2})`;
+                rotate(p, rX, rY);
+                let scale = 400 / (400 - p.z);
+                let x2d = p.x * scale + 300;
+                let y2d = p.y * scale + 300;
+                ctx.fillStyle = `rgba(0, 242, 255, ${(p.z + 200)/400})`;
                 ctx.beginPath();
-                ctx.arc(x2d, y2d, size, 0, Math.PI*2);
+                ctx.arc(x2d, y2d, Math.max(1, 2 * scale), 0, Math.PI*2);
                 ctx.fill();
             });
             requestAnimationFrame(draw);
         }
 
-        canvas.addEventListener('mousemove', e => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-            mouse.active = true;
+        window.addEventListener('mousemove', e => {
+            mouseX = e.clientX - window.innerWidth/2 + 300;
+            mouseY = e.clientY - window.innerHeight/2 + 300;
         });
-        canvas.addEventListener('mouseleave', () => mouse.active = false);
 
-        initCanvas(); draw();
+        // --- MODAL LOGIC ---
+        function toggleModal() {
+            const m = document.getElementById('modal');
+            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-        // --- WEBHOOK FUNCTION ---
+        // --- WEBHOOK ---
         function sendWebhook() {
             const id = document.getElementById('userId').value;
             const msg = document.getElementById('userMsg').value;
-            const webhookURL = "TU_WEBHOOK_AQUI"; // REEMPLAZA ESTO
-
-            if(!id || !msg) return alert("Rellena todos los campos, crack.");
-
-            const payload = {
-                embeds: [{
-                    title: "🚀 Nuevo Reporte de Ayuda",
-                    color: 3447003,
-                    fields: [
-                        { name: "🆔 Discord ID", value: id, inline: true },
-                        { name: "📝 Mensaje", value: msg }
-                    ],
-                    footer: { text: "Ø𝐓𝐈 Web System" }
-                }]
-            };
-
-            fetch(webhookURL, {
+            if(!id || !msg) return alert("Rellena los datos!");
+            
+            // Aquí pones tu Webhook de Discord
+            const url = "TU_WEBHOOK_AQUI"; 
+            
+            fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    embeds: [{
+                        title: "Nuevo Soporte",
+                        description: `**ID:** ${id}\n**Msg:** ${msg}`,
+                        color: 65535
+                    }]
+                })
             }).then(() => {
-                alert("¡Enviado! Te contactaremos pronto.");
-                document.getElementById('userMsg').value = "";
-            }).catch(() => alert("Error al enviar. Revisa el Webhook."));
+                alert("Enviado con éxito!");
+                toggleModal();
+            });
         }
+
+        init(); draw();
     </script>
 </body>
 </html>
