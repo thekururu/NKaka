@@ -92,18 +92,18 @@
 <script type="module">
     import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; // Asegúrate de que sea la de Google AI Studio
+    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; //ya
     const genAI = new GoogleGenerativeAI(API_KEY);
 
-    // USAMOS gemini-pro O gemini-1.5-flash-latest QUE SON MÁS ESTABLES
+  
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash-latest", 
+        model: "gemini-2.5-flash", 
         systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y tecnológica. No seas un asistente aburrido."
     });
 
-    // CONFIGURACIÓN DE SEGURIDAD (Para que responda "como quiera")
+  
     const generationConfig = {
-        threshold: "BLOCK_NONE", // Esto permite que la IA sea más libre
+        threshold: "BLOCK_NONE",
         temperature: 0.9,
     };
 
@@ -116,7 +116,7 @@
         document.getElementById('loading').style.display = "block";
 
         try {
-            // Pasamos la configuración de generación aquí
+         
             const result = await model.generateContent(prompt, generationConfig);
             const response = await result.response;
             addMessage(response.text(), 'oti');
