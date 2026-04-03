@@ -89,54 +89,53 @@
 
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
 
-  <script type="module">
+<script type="module">
     import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-
-    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; 
+    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; // Asegúrate de que sea la de Google AI Studio
     const genAI = new GoogleGenerativeAI(API_KEY);
-    
+
+    // USAMOS gemini-pro O gemini-1.5-flash-latest QUE SON MÁS ESTABLES
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
-    
-        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y con la personalidad que prefieras, siempre que mantengas la esencia tecnológica y cyberpunk del proyecto. No seas un asistente genérico."
+        model: "gemini-1.5-flash-latest", 
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y tecnológica. No seas un asistente aburrido."
     });
 
-    const chatBox = document.getElementById('chatBox');
-    const input = document.getElementById('userInput');
-    const loader = document.getElementById('loading');
+    // CONFIGURACIÓN DE SEGURIDAD (Para que responda "como quiera")
+    const generationConfig = {
+        threshold: "BLOCK_NONE", // Esto permite que la IA sea más libre
+        temperature: 0.9,
+    };
 
     window.askAI = async () => {
-        const prompt = input.value.trim();
+        const prompt = document.getElementById('userInput').value.trim();
         if(!prompt) return;
 
         addMessage(prompt, 'user');
-        input.value = "";
-        loader.style.display = "block";
+        document.getElementById('userInput').value = "";
+        document.getElementById('loading').style.display = "block";
 
         try {
-            // Generación de contenido sin restricciones de neutralidad
-            const result = await model.generateContent(prompt);
+            // Pasamos la configuración de generación aquí
+            const result = await model.generateContent(prompt, generationConfig);
             const response = await result.response;
             addMessage(response.text(), 'oti');
         } catch (error) {
-            // Si sale el error de la imagen anterior, es probable que la Key necesite revisión o permisos
-            addMessage("Error de conexión. El núcleo neural no responde.", 'oti');
-            console.error(error);
+            console.error("Error detallado:", error);
+            addMessage("El núcleo neural ha detectado una anomalía: " + error.message, 'oti');
         } finally {
-            loader.style.display = "none";
+            document.getElementById('loading').style.display = "none";
         }
     };
 
     function addMessage(text, sender) {
+        const chatBox = document.getElementById('chatBox');
         const div = document.createElement('div');
         div.classList.add('message', sender);
         div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
         chatBox.appendChild(div);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-
-    input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
 </script>
     
 </body>
