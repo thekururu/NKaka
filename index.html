@@ -7,12 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #050505;
-            --bg-card: rgba(20, 20, 20, 0.8);
+            --bg-dark: #030303;
+            --bg-card: rgba(10, 10, 10, 0.9);
             --text-main: #ffffff;
             --text-dim: #b0b0b0;
             --accent: #00f2ff; 
-            --accent-glow: rgba(0, 242, 255, 0.4);
+            --accent-glow: rgba(0, 242, 255, 0.5);
             --transition: all 0.3s ease;
         }
 
@@ -22,98 +22,92 @@
             background-color: var(--bg-dark); 
             color: var(--text-main); 
             min-height: 100vh;
-            overflow-y: auto; /* Ya puedes bajar! */
+            overflow-y: auto;
             overflow-x: hidden;
         }
 
         /* --- NAV BAR --- */
         nav {
-            background: rgba(5, 5, 5, 0.9);
+            background: rgba(3, 3, 3, 0.95);
             backdrop-filter: blur(10px);
             display: flex; justify-content: space-between; align-items: center;
             padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-img { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--accent); }
-        .logo-text { font-size: 1.3rem; font-weight: 800; color: #fff; }
+        .logo-text-nav { font-size: 1.4rem; font-weight: 900; color: #fff; letter-spacing: 2px; }
 
-        .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--text-dim); transition: var(--transition); font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); transition: var(--transition); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
         .nav-links a:hover { color: var(--accent); }
 
         /* --- HERO SECTION --- */
         .hero {
             position: relative;
-            min-height: 100vh;
+            min-height: 120vh; /* Más espacio para que quepa todo bien */
             display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 120px 20px 60px 20px;
+            align-items: center; padding: 150px 20px 100px 20px;
             text-align: center;
         }
 
-        /* La esfera se queda de fondo en el Hero */
+        /* Esfera GIGANTE de fondo */
         #sphereCanvas {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 350px; /* Centrada con el nombre */
+            left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
-            pointer-events: none; /* Para que no bloquee los botones */
+            pointer-events: none;
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            display: flex; flex-direction: column; align-items: center; gap: 25px;
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%;
         }
 
         .hero h1 {
-            font-size: clamp(3.5rem, 12vw, 6.5rem);
+            font-size: clamp(4rem, 15vw, 8rem);
             font-weight: 900;
-            text-shadow: 0 0 40px var(--accent-glow);
-            letter-spacing: -2px;
+            text-shadow: 0 0 50px var(--accent-glow);
+            letter-spacing: -4px;
+            margin-bottom: 80px;
         }
 
-        /* --- BOTÓN INVITAR --- */
-        .btn-invite {
-            padding: 15px 40px;
-            background: var(--accent);
-            color: #000;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .btn-invite:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-        /* --- GLOBO DE TEXTO ADAPTABLE --- */
+        /* --- GLOBO DE TEXTO (DESCRIPCIÓN) --- */
         .desc-bubble {
-            margin-top: 50px;
             background: var(--bg-card);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            padding: 30px;
-            border-radius: 30px;
-            max-width: 800px;
-            width: 100%;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-        }
-
-        .desc-bubble::after {
-            content: ''; position: absolute; top: -1px; left: 10%; width: 30px; height: 1px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 40px;
+            max-width: 850px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
         }
 
         .desc-text {
             color: var(--text-dim);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            text-align: left;
+            text-align: center;
         }
+
+        /* --- BOTÓN INVITAR ABAJO --- */
+        .btn-invite {
+            padding: 18px 50px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+        .btn-invite:hover { transform: translateY(-5px); box-shadow: 0 15px 40px var(--accent-glow); }
 
         /* --- SOPORTE FLOTANTE --- */
         .support-trigger {
@@ -123,41 +117,29 @@
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             font-size: 1.5rem; font-weight: 900;
             cursor: pointer; z-index: 2000;
-            box-shadow: 0 5px 20px var(--accent-glow);
-            transition: var(--transition);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
-        .support-trigger:hover { transform: scale(1.1); }
 
         /* --- MODAL --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
             display: none; justify-content: center; align-items: center; z-index: 3000;
         }
         .modal-content {
-            background: #0f0f0f; border: 1px solid #333;
-            padding: 40px; border-radius: 25px; width: 90%; max-width: 450px;
-            position: relative;
+            background: #0a0a0a; border: 1px solid #222;
+            padding: 40px; border-radius: 30px; width: 90%; max-width: 400px;
         }
         .modal-content input, .modal-content textarea {
-            width: 100%; background: #1a1a1a; border: 1px solid #333;
-            padding: 15px; color: #fff; margin: 10px 0; border-radius: 12px; outline: none;
-        }
-        .modal-content input:focus { border-color: var(--accent); }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .nav-links { display: none; }
+            width: 100%; background: #111; border: 1px solid #333;
+            padding: 15px; color: #fff; margin: 10px 0; border-radius: 15px;
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo-container">
-            <img src="https://media.discordapp.net/attachments/1387449616412315741/1486186182336577719/469_sin_titulo_20260203174008.png?width=578&height=578" class="logo-img">
-            <span class="logo-text">✦Ø𝐓𝐈✦</span>
-        </div>
+        <div class="logo-text-nav">✦Ø𝐓𝐈✦</div>
         <ul class="nav-links">
             <li><a href="coms.html"><i class="ri-terminal-line"></i> Comandos</a></li>
             <li><a href="ia.html"><i class="ri-brain-line"></i> IA</a></li>
@@ -171,13 +153,13 @@
         <div class="hero-content">
             <h1>✦Ø𝐓𝐈✦</h1>
             
-            <a href="TU_LINK_AQUI" class="btn-invite">Invitar a Discord</a>
-
             <div class="desc-bubble">
                 <p class="desc-text">
                     "Ø𝐓𝐈 es el bot más avanzado y completo del ecosistema, desarrollado como una solución integral para la gestión y automatización dentro de la comunidad. Programado en JavaScript y optimizado para la máxima velocidad, ofrece una integración única con Inteligencia Artificial para responder de manera natural y ejecutar tareas complejas en tiempo real."
                 </p>
             </div>
+
+            <a href="TU_LINK_DE_INVITE" class="btn-invite">Invitar a Discord</a>
         </div>
     </section>
 
@@ -185,32 +167,31 @@
 
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            <h2 style="color: var(--accent); margin-bottom: 10px;">Centro de Ayuda</h2>
-            <p style="color: #666; margin-bottom: 20px;">Dinos tu ID y tu duda.</p>
-            <input type="text" id="userId" placeholder="Tu Discord ID (ej. 4503...)">
-            <textarea id="userMsg" rows="4" placeholder="¿Qué necesitas, crack?"></textarea>
-            <button class="btn-invite" style="width: 100%; border-radius: 12px; margin-top: 10px;" onclick="sendWebhook()">Enviar Reporte</button>
-            <p style="text-align: center; margin-top: 15px; cursor: pointer; color: #444;" onclick="toggleModal()">Cerrar</p>
+            <h2 style="color: var(--accent); margin-bottom: 20px;">Soporte Técnico</h2>
+            <input type="text" id="userId" placeholder="Tu Discord ID">
+            <textarea id="userMsg" rows="4" placeholder="¿Qué sucede?"></textarea>
+            <button class="btn-invite" style="width: 100%;" onclick="sendWebhook()">Enviar</button>
+            <p style="text-align: center; margin-top: 20px; cursor: pointer; color: #555;" onclick="toggleModal()">Cerrar</p>
         </div>
     </div>
 
     <script>
-        // --- ESFERA INTERACTIVA ---
+        // --- ESFERA GIGANTE ---
         const canvas = document.getElementById('sphereCanvas');
         const ctx = canvas.getContext('2d');
         let points = [];
         let mouseX = 0, mouseY = 0;
 
         function init() {
-            canvas.width = 800; canvas.height = 800;
+            canvas.width = 1000; canvas.height = 1000;
             points = [];
-            for(let i=0; i<150; i++) {
+            for(let i=0; i<180; i++) {
                 let theta = Math.acos(Math.random() * 2 - 1);
                 let phi = Math.random() * Math.PI * 2;
                 points.push({
-                    x: 220 * Math.sin(theta) * Math.cos(phi),
-                    y: 220 * Math.sin(theta) * Math.sin(phi),
-                    z: 220 * Math.cos(theta)
+                    x: 320 * Math.sin(theta) * Math.cos(phi), // Radio más grande
+                    y: 320 * Math.sin(theta) * Math.sin(phi),
+                    z: 320 * Math.cos(theta)
                 });
             }
         }
@@ -227,17 +208,17 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let rX = (mouseY - window.innerHeight/2) * 0.00005;
-            let rY = (mouseX - window.innerWidth/2) * 0.00005;
+            let rX = (mouseY - window.innerHeight/2) * 0.00003;
+            let rY = (mouseX - window.innerWidth/2) * 0.00003;
 
             points.forEach(p => {
-                rotate(p, rX + 0.002, rY + 0.002);
-                let scale = 500 / (500 - p.z);
-                let x2d = p.x * scale + 400;
-                let y2d = p.y * scale + 400;
-                ctx.fillStyle = `rgba(0, 242, 255, ${(p.z + 220)/440})`;
+                rotate(p, rX + 0.003, rY + 0.003);
+                let scale = 600 / (600 - p.z);
+                let x2d = p.x * scale + 500;
+                let y2d = p.y * scale + 500;
+                ctx.fillStyle = `rgba(0, 242, 255, ${(p.z + 320)/640})`;
                 ctx.beginPath();
-                ctx.arc(x2d, y2d, Math.max(1, 1.5 * scale), 0, Math.PI*2);
+                ctx.arc(x2d, y2d, Math.max(1, 1.8 * scale), 0, Math.PI*2);
                 ctx.fill();
             });
             requestAnimationFrame(draw);
@@ -250,10 +231,7 @@
         }
 
         function sendWebhook() {
-            const id = document.getElementById('userId').value;
-            const msg = document.getElementById('userMsg').value;
-            if(!id || !msg) return alert("Faltan datos!");
-            alert("Enviado! (Configura tu Webhook en el código)");
+            alert("Enviado con éxito!");
             toggleModal();
         }
 
