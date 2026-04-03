@@ -8,58 +8,66 @@
     <style>
         :root { --accent: #00f2ff; --glow: rgba(0, 242, 255, 0.6); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: #020202; color: #fff; overflow-x: hidden; }
+        body { background: #010101; color: #fff; overflow-x: hidden; }
 
-        /* --- NAVBAR CON ICONOS --- */
+        /* --- NAVBAR --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: rgba(2, 2, 2, 0.8); backdrop-filter: blur(10px);
+            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
         }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; }
-        .links { display: flex; gap: 20px; }
-        .links a { text-decoration: none; color: #999; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
-        .links a:hover { color: var(--accent); }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; }
+        .links { display: flex; gap: 15px; }
+        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; }
+        
+        /* Ocultar texto en móvil para que no choque */
+        @media (max-width: 600px) { .links span { display: none; } .links i { font-size: 1.2rem; } }
 
-        /* --- ZONA DE LA ESFERA --- */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
-        #sphereCanvas { cursor: crosshair; }
-
-        /* --- CONTENIDO BAJADO (HACER SCROLL) --- */
-        .content { 
-            padding: 100px 20px; display: flex; flex-direction: column; align-items: center; 
-            gap: 60px; text-align: center;
+        /* --- HERO: ESFERA + TITULO DENTRO --- */
+        .hero { 
+            height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; 
+            position: relative; overflow: hidden;
         }
-        h1 { font-size: clamp(4rem, 15vw, 9rem); text-shadow: 0 0 50px var(--glow); }
+        #sphereCanvas { position: absolute; z-index: 1; touch-action: none; }
+        
+        .hero-title {
+            position: relative; z-index: 2; font-size: clamp(3rem, 15vw, 8rem);
+            font-weight: 900; text-shadow: 0 0 40px var(--glow);
+            pointer-events: none; /* Para poder tocar la esfera "detrás" */
+            letter-spacing: -2px;
+        }
 
+        /* --- CONTENIDO ABAJO --- */
+        .content { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        
         .bubble {
-            background: rgba(15, 15, 15, 0.9); border: 1px solid #222;
-            padding: 40px; border-radius: 40px; max-width: 800px; width: 90%;
-            color: #999; font-size: 1.2rem; line-height: 1.8;
+            background: rgba(10, 10, 10, 0.9); border: 1px solid #1a1a1a;
+            padding: 30px; border-radius: 35px; max-width: 600px; width: 95%;
+            color: #888; font-size: 1.1rem; line-height: 1.6; text-align: center;
         }
 
         .btn {
-            padding: 20px 60px; background: var(--accent); color: #000;
+            padding: 18px 50px; background: var(--accent); color: #000;
             text-decoration: none; font-weight: 900; border-radius: 100px;
-            box-shadow: 0 0 30px var(--glow); transition: 0.3s;
+            box-shadow: 0 0 30px var(--glow); transition: 0.3s; letter-spacing: 1px;
         }
-        .btn:hover { transform: scale(1.1); }
 
-        footer { padding: 50px; color: #444; font-size: 1.5rem; text-align: center; letter-spacing: 5px; }
+        footer { padding: 60px; color: #333; font-size: 1.2rem; text-align: center; letter-spacing: 4px; }
 
-        /* --- MODAL SOPORTE --- */
+        /* --- SOPORTE FLOTANTE --- */
         .support-btn {
-            position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px;
+            position: fixed; bottom: 20px; left: 20px; width: 55px; height: 55px;
             background: var(--accent); color: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 1.5rem; cursor: pointer; z-index: 2000;
+            font-weight: 900; font-size: 1.3rem; cursor: pointer; z-index: 2000;
         }
+        
         #modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 3000;
+            background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; z-index: 3000;
         }
-        .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; width: 90%; max-width: 400px; border: 1px solid #333; }
-        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #151515; border: 1px solid #333; color: #fff; border-radius: 10px; }
+        .modal-box { background: #050505; padding: 30px; border-radius: 25px; width: 90%; max-width: 350px; border: 1px solid #222; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #0f0f0f; border: 1px solid #222; color: #fff; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -67,21 +75,19 @@
     <nav>
         <div class="logo">✦Ø𝐓𝐈✦</div>
         <div class="links">
-            <a href="#"><i class="ri-terminal-box-line"></i> Comandos</a>
-            <a href="#"><i class="ri-cpu-line"></i> IA</a>
-            <a href="#"><i class="ri-code-s-slash-line"></i> Código</a>
+            <a href="#"><i class="ri-terminal-box-line"></i> <span>Comandos</span></a>
+            <a href="#"><i class="ri-cpu-line"></i> <span>IA</span></a>
+            <a href="#"><i class="ri-code-s-slash-line"></i> <span>Código</span></a>
         </div>
     </nav>
 
     <section class="hero">
         <canvas id="sphereCanvas"></canvas>
+        <h1 class="hero-title">✦Ø𝐓𝐈✦</h1>
     </section>
 
     <section class="content">
-        <h1>✦Ø𝐓𝐈✦</h1>
-        <div class="bubble">
-            (PONER DESC AQUÍ)
-        </div>
+        <div class="bubble"> (PONER DESC AQUÍ) </div>
         <a href="#" class="btn">INVITAR A DISCORD</a>
     </section>
 
@@ -91,11 +97,11 @@
 
     <div id="modal">
         <div class="modal-box">
-            <h2 style="color:var(--accent)">Soporte</h2>
+            <h2 style="color:var(--accent); font-size: 1.2rem;">Soporte Técnico</h2>
             <input type="text" id="id" placeholder="Discord ID">
-            <textarea id="msg" rows="4" placeholder="¿Qué pasó?"></textarea>
-            <button class="btn" style="width:100%; padding:15px;" onclick="closeModal()">ENVIAR</button>
-            <p onclick="closeModal()" style="margin-top:15px; cursor:pointer; color:#555; text-align:center;">Cerrar</p>
+            <textarea id="msg" rows="3" placeholder="¿En qué ayudamos?"></textarea>
+            <button class="btn" style="width:100%; padding:12px; font-size: 0.9rem;" onclick="closeModal()">ENVIAR</button>
+            <p onclick="closeModal()" style="margin-top:15px; cursor:pointer; color:#444; text-align:center; font-size: 0.8rem;">Cerrar</p>
         </div>
     </div>
 
@@ -104,15 +110,17 @@
         const ctx = canvas.getContext('2d');
         let points = [];
         let mX = 0, mY = 0;
+        let radius = window.innerWidth < 600 ? 180 : 320; // Más chica en móvil
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            radius = window.innerWidth < 600 ? 180 : 320;
             points = [];
-            for(let i=0; i<180; i++) {
+            for(let i=0; i<150; i++) {
                 let t = Math.acos(Math.random() * 2 - 1);
                 let p = Math.random() * Math.PI * 2;
-                points.push({x: 350 * Math.sin(t) * Math.cos(p), y: 350 * Math.sin(t) * Math.sin(p), z: 350 * Math.cos(t)});
+                points.push({x: radius * Math.sin(t) * Math.cos(p), y: radius * Math.sin(t) * Math.sin(p), z: radius * Math.cos(t)});
             }
         }
 
@@ -126,23 +134,22 @@
 
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            let rX = (mY - canvas.height/2) * 0.00005, rY = (mX - canvas.width/2) * 0.00005;
+            let rX = (mY - canvas.height/2) * 0.00004, rY = (mX - canvas.width/2) * 0.00004;
             let proj = [];
             points.forEach(p => {
-                rotate(p, rX + 0.003, rY + 0.003);
-                let s = 600 / (600 - p.z);
+                rotate(p, rX + 0.002, rY + 0.002);
+                let s = 500 / (500 - p.z);
                 let x = p.x * s + canvas.width/2, y = p.y * s + canvas.height/2;
                 proj.push({x, y});
-                ctx.fillStyle = `rgba(0,242,255,${(p.z+350)/700})`;
-                ctx.beginPath(); ctx.arc(x, y, 1.5 * s, 0, 7); ctx.fill();
+                ctx.fillStyle = `rgba(0,242,255,${(p.z+radius)/(radius*2)})`;
+                ctx.beginPath(); ctx.arc(x, y, (window.innerWidth < 600 ? 1 : 1.5) * s, 0, 7); ctx.fill();
             });
-            // Juego de líneas
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.4;
             for(let i=0; i<proj.length; i++) {
                 for(let j=i+1; j<proj.length; j++) {
                     let d = Math.hypot(proj[i].x - proj[j].x, proj[i].y - proj[j].y);
-                    if(d < 90) {
-                        ctx.strokeStyle = `rgba(0,242,255,${0.2*(1-d/90)})`;
+                    if(d < (window.innerWidth < 600 ? 50 : 80)) {
+                        ctx.strokeStyle = `rgba(0,242,255,${0.15 * (1-d/80)})`;
                         ctx.beginPath(); ctx.moveTo(proj[i].x, proj[i].y); ctx.lineTo(proj[j].x, proj[j].y); ctx.stroke();
                     }
                 }
@@ -151,6 +158,7 @@
         }
 
         window.onmousemove = e => { mX = e.clientX; mY = e.clientY; };
+        window.ontouchmove = e => { mX = e.touches[0].clientX; mY = e.touches[0].clientY; };
         function openModal() { document.getElementById('modal').style.display = 'flex'; }
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
         window.onresize = init;
