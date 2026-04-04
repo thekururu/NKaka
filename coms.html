@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦Ø𝐓𝐈✦ | Comandos</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root { --accent: #00f2ff; --glow: rgba(0, 242, 255, 0.4); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #010101; color: #fff; overflow-x: hidden; }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-decoration: none; color: #fff; }
+        .links { display: flex; gap: 15px; }
+        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .links a:hover, .links a.active { color: var(--accent); }
+
+        /* --- CONTENIDO --- */
+        .container { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; }
+        
+        .header-section { text-align: center; margin-bottom: 60px; }
+        .header-section h1 { font-size: 3rem; font-weight: 900; text-shadow: 0 0 30px var(--glow); margin-bottom: 10px; }
+        .header-section p { color: #555; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+
+        /* --- GRID DE COMANDOS --- */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cmd-card {
+            background: rgba(15, 15, 15, 0.5);
+            border: 1px solid #1a1a1a;
+            padding: 25px;
+            border-radius: 20px;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cmd-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+
+        .cmd-icon {
+            width: 50px; height: 50px;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; font-size: 1.5rem; margin-bottom: 20px;
+        }
+
+        .cmd-name { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 8px; display: block; }
+        .cmd-desc { color: #888; font-size: 0.9rem; line-height: 1.5; }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px; color: #333; font-size: 1.2rem; text-align: center; letter-spacing: 4px; }
+
+        @media (max-width: 600px) {
+            .header-section h1 { font-size: 2.2rem; }
+            .links span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">✦Ø𝐓𝐈✦</a>
+        <div class="links">
+            <a href="coms.html" class="active"><i class="ri-terminal-box-line"></i> <span>Comandos</span></a>
+            <a href="ia.html"><i class="ri-cpu-line"></i> <span>IA</span></a>
+            <a href="code.html"><i class="ri-code-s-slash-line"></i> <span>Código</span></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <p>Ecosistema de Funciones</p>
+            <h1>Lista de Comandos</h1>
+        </div>
+
+        <div class="commands-grid">
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-information-line"></i></div>
+                <span class="cmd-name">/info</span>
+                <p class="cmd-desc">Muestra información básica del servidor de forma detallada.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-chat-1-line"></i></div>
+                <span class="cmd-name">/mensaje</span>
+                <p class="cmd-desc">Envía un mensaje personalizado directamente al canal actual.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-terminal-window-line"></i></div>
+                <span class="cmd-name">/developer</span>
+                <p class="cmd-desc">Accede rápidamente al Developer Portal de Discord.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-global-line"></i></div>
+                <span class="cmd-name">/otiweb</span>
+                <p class="cmd-desc">Muestra el sitio web oficial de Ø𝐓𝐈 para más detalles.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-user-smile-line"></i></div>
+                <span class="cmd-name">/avatar</span>
+                <p class="cmd-desc">Obtén y muestra el avatar en alta resolución de cualquier usuario.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-emotion-laugh-line"></i></div>
+                <span class="cmd-name">/chiste</span>
+                <p class="cmd-desc">Te cuenta un chiste aleatorio para animar el servidor.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-delete-bin-line"></i></div>
+                <span class="cmd-name">/clear</span>
+                <p class="cmd-desc">Borra una cantidad específica de mensajes de forma masiva.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-rocket-line"></i></div>
+                <span class="cmd-name">/datoespacial</span>
+                <p class="cmd-desc">Obtiene una curiosidad o dato random fascinante del universo.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-image-edit-line"></i></div>
+                <span class="cmd-name">/img</span>
+                <p class="cmd-desc">Genera una imagen artística utilizando Inteligencia Artificial.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-robot-line"></i></div>
+                <span class="cmd-name">/search</span>
+                <p class="cmd-desc">Hazle cualquier pregunta a Gemini y obtén una respuesta inteligente.</p>
+            </div>
+
+            <div class="cmd-card">
+                <div class="cmd-icon"><i class="ri-ticket-2-line"></i></div>
+                <span class="cmd-name">/ticket</span>
+                <p class="cmd-desc">Inicia el sistema de soporte mediante tickets privados.</p>
+            </div>
+
+            <div class="cmd-card" style="border-color: #331111;">
+                <div class="cmd-icon" style="color: #ff4b4b; background: rgba(255,75,75,0.1);"><i class="ri-shield-flash-line"></i></div>
+                <span class="cmd-name">/warn / warnings</span>
+                <p class="cmd-desc">Gestión de advertencias y sistema disciplinario para usuarios.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
+
+</body>
+</html>

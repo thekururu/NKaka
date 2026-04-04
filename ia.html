@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦Ø𝐓𝐈✦ | Asiastente</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root { --accent: #00f2ff; --glow: rgba(0, 242, 255, 0.5); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #010101; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-decoration: none; color: #fff; }
+        .links { display: flex; gap: 15px; }
+        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; }
+        .links a:hover, .links a.active { color: var(--accent); }
+
+        /* --- CHAT AREA --- */
+        .container { padding: 120px 5% 40px; flex: 1; display: flex; flex-direction: column; align-items: center; max-width: 900px; margin: 0 auto; width: 100%; }
+        
+        .chat-interface {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #1a1a1a;
+            border-radius: 25px;
+            width: 100%; height: 600px;
+            display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .chat-header {
+            background: #0a0a0a; padding: 15px 25px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .chat-title { font-size: 0.8rem; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
+
+        .chat-messages { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .message { max-width: 85%; padding: 14px 20px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; }
+        .message.user { align-self: flex-end; background: #111; color: #fff; border-bottom-right-radius: 2px; border: 1px solid #222; }
+        .message.oti { align-self: flex-start; background: rgba(0, 242, 255, 0.03); color: #ccc; border-bottom-left-radius: 2px; border: 1px solid rgba(0, 242, 255, 0.1); }
+        .oti-prefix { color: var(--accent); font-weight: 800; margin-right: 6px; }
+
+        /* --- INPUT --- */
+        .chat-input-area { background: #080808; padding: 15px; border-top: 1px solid #1a1a1a; display: flex; gap: 10px; }
+        #userInput { flex: 1; background: #010101; border: 1px solid #222; padding: 14px; color: #fff; border-radius: 12px; outline: none; }
+        #sendBtn { background: var(--accent); color: #000; border: none; width: 48px; height: 48px; border-radius: 12px; cursor: pointer; font-size: 1.2rem; }
+
+        .loading { font-size: 0.75rem; color: #444; margin: 0 25px 10px; display: none; }
+        footer { padding: 30px; color: #222; font-size: 1.2rem; text-align: center; letter-spacing: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">✦Ø𝐓𝐈✦</a>
+        <div class="links">
+            <a href="coms.html"><i class="ri-terminal-box-line"></i> <span>Comandos</span></a>
+            <a href="ia.html" class="active"><i class="ri-cpu-line"></i> <span>Asistente</span></a>
+            <a href="code.html"><i class="ri-code-s-slash-line"></i> <span>Código</span></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="chat-interface">
+            <div class="chat-header">
+                <div class="chat-title">Ø𝐓𝐈 NEURAL CORE V2</div>
+                <div id="statusIcon"><i class="ri-pulse-line" style="color: #27c93f;"></i></div>
+            </div>
+
+            <div class="chat-messages" id="chatBox">
+                <div class="message oti"><span class="oti-prefix">✦ Ø𝐓𝐈:</span> Núcleo neural en línea. ¿Qué quieres saber sobre el ecosistema más avanzado de Discord?</div>
+            </div>
+            
+            <div id="loading" class="loading">Sincronizando flujos de datos...</div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Habla con Ø𝐓𝐈...">
+                <button id="sendBtn" onclick="askAI()"><i class="ri-send-plane-2-line"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
+
+<script type="module">
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; //ya
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+  
+    const model = genAI.getGenerativeModel({ 
+        model: "gemini-2.5-flash", 
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y tecnológica. No seas un asistente aburrido."
+    });
+
+  
+    const generationConfig = {
+        threshold: "BLOCK_NONE",
+        temperature: 0.9,
+    };
+
+    window.askAI = async () => {
+        const prompt = document.getElementById('userInput').value.trim();
+        if(!prompt) return;
+
+        addMessage(prompt, 'user');
+        document.getElementById('userInput').value = "";
+        document.getElementById('loading').style.display = "block";
+
+        try {
+         
+            const result = await model.generateContent(prompt, generationConfig);
+            const response = await result.response;
+            addMessage(response.text(), 'oti');
+        } catch (error) {
+            console.error("Error detallado:", error);
+            addMessage("El núcleo neural ha detectado una anomalía: " + error.message, 'oti');
+        } finally {
+            document.getElementById('loading').style.display = "none";
+        }
+    };
+
+    function addMessage(text, sender) {
+        const chatBox = document.getElementById('chatBox');
+        const div = document.createElement('div');
+        div.classList.add('message', sender);
+        div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+    
+</body>
+</html>
