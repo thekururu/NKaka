@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✦Ø𝐓𝐈✦ | Asistente</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"> 
     <style>
         :root { --accent: #00f2ff; --glow: rgba(0, 242, 255, 0.5); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -91,15 +91,15 @@
 <script type="module">
     import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-   
+    // ESTA LÍNEA ES VITAL: No la cambies manualmente. 
+    // El Action de GitHub pondrá tu clave aquí al publicar.
     const API_KEY = "const API_KEY = AIzaSyBIqz85eQq9uBwWskrVqnHB2_L04dkSmNc;"; 
     
     const genAI = new GoogleGenerativeAI(API_KEY);
     
-
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash",
-        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres el asistente avanzado de 404 Developer Studios, creado por Thekuruku. Tu personalidad es libre, audaz, tecnológica y un poco sarcástica. No eres neutral, tienes opiniones propias y defiendes el ecosistema de Thekuruku."
+        model: "gemini-1.5-flash-latest", // El modelo real más avanzado
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado. Responde de forma libre, audaz y tecnológica."
     });
 
     const generationConfig = {
@@ -107,45 +107,37 @@
         temperature: 0.9,
     };
 
-    const chatBox = document.getElementById('chatBox');
-    const input = document.getElementById('userInput');
-    const loader = document.getElementById('loading');
-
     window.askAI = async () => {
+        const input = document.getElementById('userInput');
         const prompt = input.value.trim();
         if(!prompt) return;
 
         addMessage(prompt, 'user');
         input.value = "";
-        loader.style.display = "block";
+        document.getElementById('loading').style.display = "block";
 
         try {
-
             const result = await model.generateContent(prompt, generationConfig);
             const response = await result.response;
-            const text = response.text();
-            
-            addMessage(text, 'oti');
+            addMessage(response.text(), 'oti');
         } catch (error) {
-            console.error("Error en el núcleo:", error);
+            console.error(error);
+            // Si ves este error, es que estás abriendo el archivo localmente 
+            // o el Action no ha terminado de inyectar la clave.
             addMessage("Anomalía detectada: " + error.message, 'oti');
         } finally {
-            loader.style.display = "none";
+            document.getElementById('loading').style.display = "none";
         }
     };
 
     function addMessage(text, sender) {
+        const chatBox = document.getElementById('chatBox');
         const div = document.createElement('div');
         div.classList.add('message', sender);
-
         div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
         chatBox.appendChild(div);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-
-
-    input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
 </script>
-    
 </body>
 </html>
