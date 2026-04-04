@@ -2,7 +2,7 @@ name: Desplegar OTI con IA
 on:
   push:
     branches:
-      - main  # Cambia a 'master' si ese es el nombre de tu rama principal
+      - main
 
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
 
       - name: Inyectar Secreto IA
         run: |
-          # Reemplaza el marcador en el HTML con el valor de tu secreto 'IA'
+          # El comando sed busca la marca y pone tu clave real
           sed -i "s/REPLACE_WITH_IA_SECRET/${{ secrets.IA }}/g" ia.html
 
       - name: Deploy to GitHub Pages
