@@ -1,0 +1,23 @@
+name: Desplegar Ø𝐓𝐈 con IA
+on:
+  push:
+    branches:
+      - main # Asegúrate de que este sea el nombre de tu rama principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Inyectar Secreto IA
+        run: |
+          # Esto busca el texto "REPLACE_WITH_IA_SECRET" en tu ia.html y lo cambia por tu clave real
+          sed -i "s/REPLACE_WITH_IA_SECRET/${{ secrets.IA }}/g" ia.html
+
+      - name: Deploy a GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # La carpeta donde está tu proyecto
+          branch: gh-pages # GitHub Pages usará esta rama para mostrar la web
