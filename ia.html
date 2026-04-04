@@ -92,50 +92,58 @@
 <script type="module">
     import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-    const API_KEY = "AIzaSyBnxRc1R_lFROOuRkEfl7Dc0fpYIxnK6y4"; //ya
-    const genAI = new GoogleGenerativeAI(API_KEY);
 
-  
+    const API_KEY = "REPLACE_WITH_IA_SECRET"; 
+    
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    
+
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash", 
-        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres un ente digital avanzado creado por Thekuruku. Responde de forma libre, creativa y tecnológica. No seas un asistente aburrido."
+        model: "gemini-1.5-flash-latest",
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres el asistente avanzado de 404 Developer Studios, creado por Thekuruku. Responde de forma libre, tecnológica y con personalidad propia."
     });
 
-  
+
     const generationConfig = {
-        threshold: "BLOCK_NONE",
+        threshold: "BLOCK_NONE", 
         temperature: 0.9,
     };
 
+    const chatBox = document.getElementById('chatBox');
+    const input = document.getElementById('userInput');
+    const loader = document.getElementById('loading');
+
     window.askAI = async () => {
-        const prompt = document.getElementById('userInput').value.trim();
+        const prompt = input.value.trim();
         if(!prompt) return;
 
         addMessage(prompt, 'user');
-        document.getElementById('userInput').value = "";
-        document.getElementById('loading').style.display = "block";
+        input.value = "";
+        loader.style.display = "block";
 
         try {
-         
+
             const result = await model.generateContent(prompt, generationConfig);
             const response = await result.response;
             addMessage(response.text(), 'oti');
         } catch (error) {
-            console.error("Error detallado:", error);
-            addMessage("El núcleo neural ha detectado una anomalía: " + error.message, 'oti');
+
+            console.error("Error en el núcleo:", error);
+            addMessage("Anomalía detectada en el enlace neural: " + error.message, 'oti');
         } finally {
-            document.getElementById('loading').style.display = "none";
+            loader.style.display = "none";
         }
     };
 
     function addMessage(text, sender) {
-        const chatBox = document.getElementById('chatBox');
         const div = document.createElement('div');
         div.classList.add('message', sender);
         div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
         chatBox.appendChild(div);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+
+    input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
 </script>
     
 </body>
