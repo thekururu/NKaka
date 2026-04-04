@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✦Ø𝐓𝐈✦ | Asiastente</title>
+    <title>✦Ø𝐓𝐈✦ | Asistente</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root { --accent: #00f2ff; --glow: rgba(0, 242, 255, 0.5); }
@@ -92,7 +92,7 @@
 <script type="module">
     import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-
+   
     const API_KEY = "const API_KEY = AIzaSyBIqz85eQq9uBwWskrVqnHB2_L04dkSmNc;"; 
     
     const genAI = new GoogleGenerativeAI(API_KEY);
@@ -100,9 +100,8 @@
 
     const model = genAI.getGenerativeModel({ 
         model: "gemini-1.5-flash-latest",
-        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres el asistente avanzado de 404 Developer Studios, creado por Thekuruku. Responde de forma libre, tecnológica y con personalidad propia."
+        systemInstruction: "Tu nombre es Ø𝐓𝐈. Eres el asistente avanzado de 404 Developer Studios, creado por Thekuruku. Tu personalidad es libre, audaz, tecnológica y un poco sarcástica. No eres neutral, tienes opiniones propias y defiendes el ecosistema de Thekuruku."
     });
-
 
     const generationConfig = {
         threshold: "BLOCK_NONE", 
@@ -125,11 +124,12 @@
 
             const result = await model.generateContent(prompt, generationConfig);
             const response = await result.response;
-            addMessage(response.text(), 'oti');
+            const text = response.text();
+            
+            addMessage(text, 'oti');
         } catch (error) {
-
             console.error("Error en el núcleo:", error);
-            addMessage("Anomalía detectada en el enlace neural: " + error.message, 'oti');
+            addMessage("Anomalía detectada: " + error.message, 'oti');
         } finally {
             loader.style.display = "none";
         }
@@ -138,10 +138,12 @@
     function addMessage(text, sender) {
         const div = document.createElement('div');
         div.classList.add('message', sender);
+
         div.innerHTML = sender === 'oti' ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}` : text;
         chatBox.appendChild(div);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+
 
     input.addEventListener("keypress", (e) => { if(e.key === "Enter") askAI(); });
 </script>
