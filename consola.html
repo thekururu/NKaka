@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ Ø𝐓𝐈 ✦ | LIVE CONSOLE</title>
+    <style>
+        
+        body {
+            background-color: #050505;
+            color: #00f2ff;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #terminal-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 2px solid #1a1a1a;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 0 100px rgba(0, 242, 255, 0.02);
+        }
+
+        #log-output {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: #1a1a1a #050505;
+        }
+
+        .log-entry {
+            font-size: 14px;
+            line-height: 1.4;
+            animation: blinkIn 0.1s ease-out;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .timestamp { color: #444; margin-right: 12px; font-size: 12px; }
+        .tag { color: #00ff41; margin-right: 8px; font-weight: bold; text-transform: uppercase; }
+        .content { color: #e0e0e0; }
+        .system { color: #00f2ff; text-shadow: 0 0 5px rgba(0, 242, 255, 0.5); }
+
+        @keyframes blinkIn {
+            from { opacity: 0; transform: translateX(-5px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        #log-output::-webkit-scrollbar { width: 5px; }
+        #log-output::-webkit-scrollbar-track { background: #050505; }
+        #log-output::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+
+      
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 242, 255, 0.03);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            from { top: 0; }
+            to { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<div id="terminal-container">
+    <div id="log-output">
+        <div class="log-entry system">> [SISTEMA]: Inicializando enlace neural con Ø𝐓𝐈...</div>
+        <div class="log-entry system">> [SISTEMA]: Esperando respuesta del servidor en Replit...</div>
+    </div>
+</div>
+
+<script>
+    const output = document.getElementById('log-output');
+    
+
+    const REPLIT_URL = 'https://replit.com/@thekuruky/Oti-2'; 
+
+    async function fetchLogs() {
+        try {
+            const response = await fetch(REPLIT_URL);
+            if (!response.ok) throw new Error('Servidor fuera de línea');
+            
+            const logs = await response.json();
+            
+       
+            output.innerHTML = ""; 
+            
+            logs.forEach(log => {
+                const entry = document.createElement('div');
+                entry.className = 'log-entry';
+                entry.innerHTML = `
+                    <span class="timestamp">[${log.time}]</span>
+                    <span class="tag">REPLIT:</span>
+                    <span class="content">${log.msg}</span>
+                `;
+                output.appendChild(entry);
+            });
+
+      
+            output.scrollTop = output.scrollHeight;
+
+        } catch (err) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'log-entry';
+            errorDiv.style.color = '#ff4b4b';
+            errorDiv.innerHTML = `<span class="timestamp">[${new Date().toLocaleTimeString()}]</span> [ERROR]: Fallo de conexión con el núcleo.`;
+            
+            if (output.lastChild && !output.lastChild.innerHTML.includes('ERROR')) {
+                output.appendChild(errorDiv);
+            }
+        }
+    }
+
+   
+    setInterval(fetchLogs, 3000);
+
+    fetchLogs();
+</script>
+
+</body>
+</html>
