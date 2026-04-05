@@ -15,7 +15,7 @@
         body {
             background-color: var(--dark-bg);
             color: #eee;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* --- NAVBAR EXACTO --- */
+        /* --- NAVBAR (Copy-Paste) --- */
         nav {
             background: rgba(10, 10, 10, 0.9);
             border-bottom: 1px solid var(--accent);
@@ -63,7 +63,7 @@
             color: var(--neon-blue);
         }
 
-        /* --- CONTENEDOR DE CUADROS EN LÍNEA RECTA --- */
+        /* --- CONTENEDOR 4 CUADROS EN LINEA --- */
         .container {
             flex: 1;
             width: 95%;
@@ -73,12 +73,10 @@
         }
 
         .grid-docs {
-            display: flex; /* Forzamos línea recta */
+            display: flex; /* Línea recta */
             justify-content: space-between;
             gap: 20px;
             margin-bottom: 60px;
-            overflow-x: auto; /* Por si la pantalla es muy chica */
-            padding: 20px 10px;
         }
 
         .doc-card {
@@ -87,8 +85,7 @@
             padding: 25px;
             border-radius: 15px;
             text-align: left;
-            flex: 1; /* Todos miden lo mismo */
-            min-width: 250px;
+            flex: 1; 
             transition: 0.3s;
         }
 
@@ -111,7 +108,7 @@
             font-size: 0.85rem;
         }
 
-        /* --- BOTÓN GITHUB --- */
+        /* --- BOTON GITHUB --- */
         .repo-btn {
             display: inline-flex;
             align-items: center;
@@ -125,7 +122,6 @@
             text-decoration: none;
             border-radius: 50px;
             transition: 0.4s;
-            margin-bottom: 40px;
         }
 
         .repo-btn:hover {
@@ -134,7 +130,7 @@
             box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
         }
 
-        /* --- FOOTER EXACTO --- */
+        /* --- FOOTER (Copy-Paste) --- */
         footer {
             border-top: 1px solid var(--accent);
             padding: 30px;
