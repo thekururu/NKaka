@@ -23,40 +23,15 @@
             align-items: center;
         }
 
-        /* --- NAVIGATION BAR --- */
-        nav {
-            width: 100%;
-            background: rgba(13, 13, 13, 0.95);
-            border-bottom: 1px solid var(--accent);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+       nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
         }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        nav a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px var(--neon-blue);
-        }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-decoration: none; color: #fff; }
+        .links { display: flex; gap: 15px; }
+        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .links a:hover, .links a.active { color: var(--accent); }
 
         /* --- CONTENT --- */
         .container {
