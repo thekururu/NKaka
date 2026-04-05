@@ -88,16 +88,11 @@
 
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
 
-<script>
-window.askAI = async () => {
-    const input = document.getElementById('userInput');
-    const prompt = input.value.trim();
-    if (!prompt) return;
-
-   function cleanText(text) {
+        <script>
+function cleanText(text) {
     return text
-        .replace(/[*_`#>~^-]/g, "")
-        .replace(/\n{2,}/g, "\n")   
+        .replace(/[*_`#>~^-]/g, "") 
+        .replace(/\n{2,}/g, "\n")  
         .trim();
 }
 
@@ -115,40 +110,44 @@ function addMessage(text, sender) {
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+window.askAI = async () => {
+    const input = document.getElementById('userInput');
+    const prompt = input.value.trim();
+    if (!prompt) return;
+
+    addMessage(prompt, 'user');
+    input.value = "";
+
+    const loading = document.getElementById('loading');
+    loading.style.display = "block";
+
     try {
-   
-        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(
-            "Responde como Ø𝐓𝐈, una IA avanzada, tecnológica y audaz: " + prompt
-        )}`);
+        const res = await fetch(
+            `https://text.pollinations.ai/${encodeURIComponent(
+                "Soy Ø𝐓𝐈, una IA creada y entrenada en pollinations para tener mi propia personalidad: " + prompt
+            )}`
+        );
 
         let texto = await res.text();
 
         if (!texto || texto.trim().length === 0) {
-            texto = "⚠️ Núcleo inestable. Intenta nuevamente.";
+            texto = "⚠️ Núcleo sin respuesta. Intenta otra consulta.";
         }
 
         addMessage(texto, 'oti');
 
     } catch (error) {
         console.error(error);
-        addMessage("⚠️ Error de conexión con el núcleo.", 'oti');
+        addMessage("❌ Error conectando con la IA.", 'oti');
     } finally {
-        document.getElementById('loading').style.display = "none";
+        loading.style.display = "none";
     }
 };
 
-function addMessage(text, sender) {
-    const chatBox = document.getElementById('chatBox');
-    const div = document.createElement('div');
-    div.classList.add('message', sender);
-
-    div.innerHTML = sender === 'oti'
-        ? `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${text}`
-        : text;
-
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-    </script>
+document.getElementById("userInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") askAI();
+});
+        </script>
 </body>
 </html>
