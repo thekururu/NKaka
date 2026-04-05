@@ -23,46 +23,16 @@
             min-height: 100vh;
         }
 
-        /* --- NAVBAR ESTILO COMS.HTML --- */
-        nav {
-            background: rgba(10, 10, 10, 0.9);
-            border-bottom: 1px solid var(--accent);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+         nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
         }
-
-        .logo {
-            color: var(--neon-blue);
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-decoration: none;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-        }
-
-        nav a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--neon-blue);
-        }
-
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-decoration: none; color: #fff; }
+        .links { display: flex; gap: 15px; }
+        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .links a:hover, .links a.active { color: var(--accent); }
+        
         /* --- CUADROS DE EXPLICACIÓN --- */
         .container {
             flex: 1;
