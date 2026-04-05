@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ Ø𝐓𝐈 ✦ | SOURCE CODE</title>
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --dark-bg: #050505;
+            --card-bg: #0d0d0d;
+            --accent: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        nav {
+            width: 100%;
+            background: rgba(13, 13, 13, 0.95);
+            border-bottom: 1px solid var(--accent);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        /* --- CONTENT --- */
+        .container {
+            padding: 60px 20px;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--neon-blue);
+            font-size: 2.2rem;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+            margin-bottom: 50px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: #111;
+            color: var(--neon-blue);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            border: 1px solid #222;
+            margin-top: 10px;
+        }
+
+        /* --- GITHUB BUTTON --- */
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 50px;
+            padding: 18px 40px;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: 0.4s;
+            letter-spacing: 1px;
+        }
+
+        .github-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="coms.html">Comandos</a></li>
+            <li><a href="code.html" class="active">Código</a></li>
+            <li><a href="consola.html">Live</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>NÚCLEO NEURAL: DOCUMENTACIÓN</h1>
+
+        <div class="grid-container">
+            <div class="card">
+                <h2>Brain: Gemini 1.5</h2>
+                <p>Procesamiento de lenguaje natural mediante la API de Google. Configurado para mantener la personalidad de Ø𝐓𝐈 y responder con baja latencia.</p>
+                <span class="tech-tag">AI-MODEL: FLASH</span>
+            </div>
+
+            <div class="card">
+                <h2>Framework: Discord.js</h2>
+                <p>Estructura robusta basada en Node.js v14. Gestión de Slash Commands e interacciones asíncronas para el servidor de 404 Studios.</p>
+                <span class="tech-tag">LIBRARY: DJS-V14</span>
+            </div>
+
+            <div class="card">
+                <h2>Runtime: Replit</h2>
+                <p>Instancia activa 24/7 con servidor Express para monitorización de logs y mantenimiento del bot mediante pings externos.</p>
+                <span class="tech-tag">HOST: REPLIT-ENV</span>
+            </div>
+
+            <div class="card">
+                <h2>Security: Secrets</h2>
+                <p>Tokens y API Keys gestionados mediante variables de entorno cifradas para prevenir filtraciones en el repositorio público.</p>
+                <span class="tech-tag">VAULT: ENV-LOCK</span>
+            </div>
+        </div>
+
+        <a href="https://github.com/thekururu/otibot-" target="_blank" class="github-btn">
+            <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+            VER REPOSITORIO EN GITHUB
+        </a>
+    </div>
+
+</body>
+</html>
