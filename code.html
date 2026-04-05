@@ -20,141 +20,185 @@
             padding: 0;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVBAR ESTILO COMS.HTML --- */
+        nav {
+            background: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
-       nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.2rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: rgba(1, 1, 1, 0.8); backdrop-filter: blur(10px);
-        }
-        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-decoration: none; color: #fff; }
-        .links { display: flex; gap: 15px; }
-        .links a { text-decoration: none; color: #777; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
-        .links a:hover, .links a.active { color: var(--accent); }
-   /* --- CONTENIDO --- */
-        .container { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; }
-        
-        .header-section { text-align: center; margin-bottom: 60px; }
-        .header-section h1 { font-size: 3rem; font-weight: 900; text-shadow: 0 0 30px var(--glow); margin-bottom: 10px; }
-        .header-section p { color: #555; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+        .logo {
+            color: var(--neon-blue);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;
         }
 
-        .grid-container {
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--neon-blue);
+        }
+
+        /* --- CUADROS DE EXPLICACIÓN --- */
+        .container {
+            flex: 1;
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .main-title {
+            color: var(--neon-blue);
+            font-size: 2rem;
+            margin-bottom: 50px;
+            letter-spacing: 4px;
+        }
+
+        .grid-docs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
-        .card {
+        .doc-card {
             background: var(--card-bg);
             border: 1px solid var(--accent);
-            padding: 30px;
-            border-radius: 12px;
+            padding: 40px;
+            border-radius: 15px;
             text-align: left;
-            transition: 0.3s;
-            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .card:hover {
+        .doc-card:hover {
+            transform: translateY(-10px);
             border-color: var(--neon-blue);
-            transform: translateY(-5px);
         }
 
-        .card h2 {
+        .doc-card h2 {
             color: var(--neon-blue);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-top: 0;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
         }
 
-        .card p {
+        .doc-card p {
             color: #999;
-            line-height: 1.6;
-            font-size: 0.9rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
 
-        .tech-tag {
-            display: inline-block;
-            background: #111;
-            color: var(--neon-blue);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-family: monospace;
-            border: 1px solid #222;
-            margin-top: 10px;
+        /* --- BOTÓN GIGANTE GITHUB --- */
+        .github-section {
+            margin-top: 40px;
         }
 
-        /* --- GITHUB BUTTON --- */
-        .github-btn {
+        .repo-btn {
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            margin-top: 50px;
-            padding: 18px 40px;
             background: transparent;
-            border: 2px solid var(--neon-blue);
             color: var(--neon-blue);
-            text-decoration: none;
+            border: 2px solid var(--neon-blue);
+            padding: 20px 50px;
+            font-size: 1.1rem;
             font-weight: bold;
+            text-decoration: none;
             border-radius: 50px;
             transition: 0.4s;
-            letter-spacing: 1px;
         }
 
-        .github-btn:hover {
+        .repo-btn:hover {
             background: var(--neon-blue);
             color: #000;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--accent);
+            padding: 30px;
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
- <nav>
-        <a href="index.html" class="logo">✦Ø𝐓𝐈✦</a>
-        <div class="links">
-            <a href="coms.html"><i class="ri-terminal-box-line"></i> <span>Comandos</span></a>
-            <a href="ia.html" class="active"><i class="ri-cpu-line"></i> <span>Asistente</span></a>
-            <a href="code.html"><i class="ri-code-s-slash-line"></i> <span>Código</span></a>
-        </div>
+    <nav>
+        <a href="index.html" class="logo">404 STUDIOS</a>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="coms.html">Comandos</a></li>
+            <li><a href="code.html" class="active">Código</a></li>
+            <li><a href="consola.html">Live</a></li>
+        </ul>
     </nav>
 
     <div class="container">
-        <h1>NÚCLEO NEURAL: DOCUMENTACIÓN</h1>
+        <h1 class="main-title">ARQUITECTURA DEL NÚCLEO</h1>
 
-        <div class="grid-container">
-            <div class="card">
-                <h2>Brain: Gemini 1.5</h2>
-                <p>Procesamiento de lenguaje natural mediante la API de Google. Configurado para mantener la personalidad de Ø𝐓𝐈 y responder con baja latencia.</p>
-                <span class="tech-tag">AI-MODEL: FLASH</span>
+        <div class="grid-docs">
+            <div class="doc-card">
+                <h2>Brain Engine</h2>
+                <p>El bot utiliza <b>Gemini 1.5 Flash</b> para procesar prompts. Esta integración permite a Ø𝐓𝐈 analizar texto y generar respuestas coherentes con una personalidad definida.</p>
             </div>
 
-            <div class="card">
-                <h2>Framework: Discord.js</h2>
-                <p>Estructura robusta basada en Node.js v14. Gestión de Slash Commands e interacciones asíncronas para el servidor de 404 Studios.</p>
-                <span class="tech-tag">LIBRARY: DJS-V14</span>
+            <div class="doc-card">
+                <h2>Bot Logic</h2>
+                <p>Construido sobre <b>Discord.js v14</b>. Maneja un sistema de comandos de barra optimizado para evitar el error de "Interaction Unknown" mediante el uso de <i>deferReply</i>.</p>
             </div>
 
-            <div class="card">
-                <h2>Runtime: Replit</h2>
-                <p>Instancia activa 24/7 con servidor Express para monitorización de logs y mantenimiento del bot mediante pings externos.</p>
-                <span class="tech-tag">HOST: REPLIT-ENV</span>
+            <div class="doc-card">
+                <h2>Infrastructure</h2>
+                <p>Ejecutado en un entorno de <b>Node.js</b> dentro de Replit. Incluye un servidor Express que mantiene la instancia activa y sirve los logs en tiempo real para la web.</p>
             </div>
 
-            <div class="card">
-                <h2>Security: Secrets</h2>
-                <p>Tokens y API Keys gestionados mediante variables de entorno cifradas para prevenir filtraciones en el repositorio público.</p>
-                <span class="tech-tag">VAULT: ENV-LOCK</span>
+            <div class="doc-card">
+                <h2>Security</h2>
+                <p>Implementación de <b>Variables de Entorno</b> para la gestión de API Keys. Esto asegura que los tokens sensibles jamás se filtren en el repositorio de GitHub.</p>
             </div>
         </div>
 
-        <a href="https://github.com/thekururu/otibot-" target="_blank" class="github-btn">
-            <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
-            VER REPOSITORIO EN GITHUB
-        </a>
+        <div class="github-section">
+            <a href="https://github.com/thekururu/otibot-" target="_blank" class="repo-btn">
+                <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                EXPLORAR REPOSITORIO COMPLETO
+            </a>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2026 404 DEVELOPER STUDIOS - NÚCLEO Ø𝐓𝐈
+    </footer>
 
 </body>
 </html>
