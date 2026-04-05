@@ -51,7 +51,7 @@ body {
 <script>
 async function loadLogs() {
     try {
-        const res = await fetch("/logs");
+        const res = await fetch("https://replit.com/@thekuruky/Oti-2/logs");
         const data = await res.json();
 
         const consoleDiv = document.getElementById("console");
