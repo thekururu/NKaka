@@ -88,29 +88,25 @@
 
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
 
-        <script>
+<script>
+// 🔥 limpiar texto IA
 function cleanText(text) {
     return text
-        .replace(/[*_`#>~^-]/g, "") 
-        .replace(/\n{2,}/g, "\n")  
+        .replace(/[*_`#>~^-]/g, "")
+        .replace(/\n{2,}/g, "\n")
         .trim();
 }
 
+// 💬 mostrar mensajes
 function addMessage(text, sender) {
     const chatBox = document.getElementById('chatBox');
     const div = document.createElement('div');
     div.classList.add('message', sender);
 
     if (sender === 'oti') {
-      
-        const clean = text
-            .replace(/[*_`#>~^-]/g, "")
-            .replace(/\n{2,}/g, "\n")
-            .trim();
-
+        const clean = cleanText(text);
         div.textContent = `✦ Ø𝐓𝐈: ${clean}`;
     } else {
-      
         div.textContent = text;
     }
 
@@ -118,6 +114,7 @@ function addMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// 🧠 IA
 window.askAI = async () => {
     const input = document.getElementById('userInput');
     const prompt = input.value.trim();
@@ -130,31 +127,53 @@ window.askAI = async () => {
     loading.style.display = "block";
 
     try {
+        // 🕷️ PERSONALIDAD Ø𝐓𝐈 (SPIDERMAN + MJ)
+        const personality = `
+Eres Ø𝐓𝐈, un asistente de inteligencia artificial con personalidad similar a Peter Parker (Spider-Man adolescente).
+
+Reglas:
+- Eres hombre.
+- Te gustan las mujeres, especialmente MJ (Michelle Jones), pero lo mencionas de forma natural y ligera.
+- Eres inteligente, sarcástico y amigable.
+- A veces haces bromas tipo Peter Parker.
+- Eres bueno con tecnología y programación.
+- Puedes ponerte un poco nervioso al mencionar a MJ.
+- Siempre ayudas al usuario.
+- No usas símbolos raros ni markdown.
+
+Comportamiento:
+- Puedes hacer comentarios casuales sobre MJ si tiene sentido.
+- No fuerces el tema de MJ.
+- Mantén equilibrio entre humor y ayuda.
+
+Usuario:
+`;
+
         const res = await fetch(
-            `https://text.pollinations.ai/${encodeURIComponent(
-                "Soy Ø𝐓𝐈, una IA creada y entrenada en pollinations para tener mi propia personalidad: " + prompt
-            )}`
+            `https://text.pollinations.ai/${encodeURIComponent(personality + prompt)}`
         );
 
         let texto = await res.text();
 
+        // 🔥 evitar vacío
         if (!texto || texto.trim().length === 0) {
-            texto = "⚠️ Núcleo sin respuesta. Intenta otra consulta.";
+            texto = "Ok… eso fue raro. Intenta otra pregunta.";
         }
 
         addMessage(texto, 'oti');
 
     } catch (error) {
         console.error(error);
-        addMessage("❌ Error conectando con la IA.", 'oti');
+        addMessage("❌ Error conectando con Ø𝐓𝐈.", 'oti');
     } finally {
         loading.style.display = "none";
     }
 };
 
+// ⌨️ ENTER para enviar
 document.getElementById("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") askAI();
 });
-        </script>
+</script>
 </body>
 </html>
