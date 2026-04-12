@@ -89,15 +89,24 @@
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
 
 <script>
-// 🔥 limpiar texto IA
 function cleanText(text) {
     return text
+        
         .replace(/[*_`#>~^-]/g, "")
+
+        
+        .replace(/Support Pollinations\.AI[\s\S]*/gi, "")
+        .replace(/Powered by Pollinations\.AI[\s\S]*/gi, "")
+
+    
+        .replace(/https?:\/\/\S+/g, "")
+
+    
         .replace(/\n{2,}/g, "\n")
         .trim();
-}
+    }
 
-// 💬 mostrar mensajes
+
 function addMessage(text, sender) {
     const chatBox = document.getElementById('chatBox');
     const div = document.createElement('div');
@@ -114,7 +123,7 @@ function addMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// 🧠 IA
+
 window.askAI = async () => {
     const input = document.getElementById('userInput');
     const prompt = input.value.trim();
@@ -127,7 +136,7 @@ window.askAI = async () => {
     loading.style.display = "block";
 
     try {
-        // 🕷️ PERSONALIDAD Ø𝐓𝐈 (SPIDERMAN + MJ)
+        
         const personality = `
 Eres Ø𝐓𝐈, un asistente de inteligencia artificial con personalidad similar a Peter Parker (Spider-Man adolescente).
 
@@ -155,7 +164,7 @@ Usuario:
 
         let texto = await res.text();
 
-        // 🔥 evitar vacío
+        
         if (!texto || texto.trim().length === 0) {
             texto = "Ok… eso fue raro. Intenta otra pregunta.";
         }
@@ -170,7 +179,7 @@ Usuario:
     }
 };
 
-// ⌨️ ENTER para enviar
+
 document.getElementById("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") askAI();
 });
