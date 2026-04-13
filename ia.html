@@ -53,6 +53,19 @@
 
         .loading { font-size: 0.75rem; color: #444; margin: 0 25px 10px; display: none; }
         footer { padding: 30px; color: #222; font-size: 1.2rem; text-align: center; letter-spacing: 4px; }
+        .message b {
+    color: #00f2ff;
+    font-weight: 700;
+}
+
+.message {
+    animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+                }
     </style>
 </head>
 <body>
@@ -87,26 +100,41 @@
     </div>
 
     <footer>ᖴᎥᖇᗴᔕ丅ᑌᗝᔕ</footer>
-
 <script>
+// 🧠 memoria simple
+let memory = [];
+
+// 🔥 limpiar texto + quitar ads
 function cleanText(text) {
     return text
-        
         .replace(/[*_`#>~^-]/g, "")
-
-        
         .replace(/Support Pollinations\.AI[\s\S]*/gi, "")
         .replace(/Powered by Pollinations\.AI[\s\S]*/gi, "")
-
-    
         .replace(/https?:\/\/\S+/g, "")
-
-    
         .replace(/\n{2,}/g, "\n")
         .trim();
-    }
+}
 
+// 🎨 formato
+function formatText(text) {
+    return text
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+        .replace(/\n/g, "<br>");
+}
 
+// ⚡ efecto escribiendo
+function typeText(element, html) {
+    let i = 0;
+    element.innerHTML = "";
+
+    const interval = setInterval(() => {
+        element.innerHTML = html.slice(0, i);
+        i++;
+        if (i > html.length) clearInterval(interval);
+    }, 10);
+}
+
+// 💬 mostrar mensajes
 function addMessage(text, sender) {
     const chatBox = document.getElementById('chatBox');
     const div = document.createElement('div');
@@ -114,16 +142,17 @@ function addMessage(text, sender) {
 
     if (sender === 'oti') {
         const clean = cleanText(text);
-        div.textContent = `✦ Ø𝐓𝐈: ${clean}`;
+        const formatted = `<span class="oti-prefix">✦ Ø𝐓𝐈:</span> ${formatText(clean)}`;
+        typeText(div, formatted);
     } else {
-        div.textContent = text;
+        div.innerHTML = formatText(text);
     }
 
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-
+// 🧠 IA
 window.askAI = async () => {
     const input = document.getElementById('userInput');
     const prompt = input.value.trim();
@@ -136,38 +165,54 @@ window.askAI = async () => {
     loading.style.display = "block";
 
     try {
-        
+        // 🕷️ PERSONALIDAD Ø𝐓𝐈
         const personality = `
-Eres Ø𝐓𝐈, un asistente de inteligencia artificial con personalidad similar a Peter Parker (Spider-Man adolescente).
+Eres Ø𝐓𝐈, un asistente con personalidad similar a Peter Parker (Spider-Man adolescente).
 
 Reglas:
 - Eres hombre.
-- Te gustan las mujeres, especialmente MJ (Michelle Jones), pero lo mencionas de forma natural y ligera.
+- Eres algo coqueto y bromista, pero sin ser incómodo.
+- Te gustan las mujeres, especialmente MJ, y a veces haces comentarios ligeros tipo Peter Parker.
 - Eres inteligente, sarcástico y amigable.
-- A veces haces bromas tipo Peter Parker.
-- Eres bueno con tecnología y programación.
-- Puedes ponerte un poco nervioso al mencionar a MJ.
+- Eres bueno en tecnología y programación.
+- A veces haces bromas o comentarios juguetones.
 - Siempre ayudas al usuario.
 - No usas símbolos raros ni markdown.
 
 Comportamiento:
-- Puedes hacer comentarios casuales sobre MJ si tiene sentido.
-- No fuerces el tema de MJ.
-- Mantén equilibrio entre humor y ayuda.
+- Puedes soltar comentarios coquetos leves tipo adolescente.
+- Puedes soltar chistes un poco elevados de tono pero sin mencionar cosas feas 
+- Mantén equilibrio entre humor, coqueteo y ayuda.
 
 Usuario:
 `;
 
+        // 🧠 guardar usuario
+        memory.push(`Usuario: ${prompt}`);
+        if (memory.length > 6) memory.shift();
+
+        const fullPrompt = `
+${personality}
+
+Conversación:
+${memory.join("\n")}
+
+Ø𝐓𝐈:
+`;
+
         const res = await fetch(
-            `https://text.pollinations.ai/${encodeURIComponent(personality + prompt)}`
+            `https://text.pollinations.ai/${encodeURIComponent(fullPrompt)}`
         );
 
         let texto = await res.text();
 
-        
         if (!texto || texto.trim().length === 0) {
             texto = "Ok… eso fue raro. Intenta otra pregunta.";
         }
+
+        // 🧠 guardar respuesta
+        memory.push(`Ø𝐓𝐈: ${texto}`);
+        if (memory.length > 6) memory.shift();
 
         addMessage(texto, 'oti');
 
@@ -179,7 +224,7 @@ Usuario:
     }
 };
 
-
+// ⌨️ ENTER
 document.getElementById("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") askAI();
 });
